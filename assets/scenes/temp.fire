@@ -64,7 +64,7 @@
     "_groupIndex": 0,
     "groupIndex": 0,
     "autoReleaseAssets": false,
-    "_id": "85MJwcfKdObZ57ox2P7JG2"
+    "_id": "02e04bcb-4112-44ff-8e60-420b906e75af"
   },
   {
     "__type__": "cc.Node",
@@ -91,7 +91,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 280,
+      "width": 320,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -143,8 +143,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "这是一个小游戏",
-    "_N$string": "这是一个小游戏",
+    "_string": "这是一个小游戏。",
+    "_N$string": "这是一个小游戏。",
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
