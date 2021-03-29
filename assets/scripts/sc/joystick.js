@@ -124,6 +124,6 @@ cc.Class({
             this.player.y = this.player.parent.height / 2;
         else if (this.player.y < -this.player.parent.height / 2)
             this.player.y = -this.player.parent.height / 2;
-        console.log(this.player.x, this.player.y)
+        //console.log(this.player.x, this.player.y)
     },
 });

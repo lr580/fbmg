@@ -50,6 +50,10 @@ cc.Class({
         //     //visible: false,
         // }
         reverse: false,
+        ymax: 450, //不减速边界(超过了就减速返回)
+        ymin: 150,
+        xmax: 750,
+        xmin: 150,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -68,15 +72,15 @@ cc.Class({
     update(dt) {
         var nw = Math.floor(Math.random() * 2)
         if (Math.random() > 0.5) nw = -nw;
-        if (this.node.x > 750 && nw > 0) rd += -nw;
-        else if (this.node.x < 250 && nw < 0) rd += -nw;
+        if (this.node.x > this.xmax && nw > 0) rd += -nw;
+        else if (this.node.x < this.xmin && nw < 0) rd += -nw;
         else rd += nw;
         this.node.x += rd
 
         var nw2 = Math.floor(Math.random() * 2)
         if (Math.random() > 0.5) nw2 = -nw2;
-        if (this.node.y > 450 && nw2 > 0) rc += -nw2;
-        else if (this.node.y < 150 && nw2 < 0) rc += -nw2;
+        if (this.node.y > this.ymax && nw2 > 0) rc += -nw2;
+        else if (this.node.y < this.xmin && nw2 < 0) rc += -nw2;
         else rc += nw2
         this.node.y += rc
 
