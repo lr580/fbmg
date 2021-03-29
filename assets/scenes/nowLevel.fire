@@ -371,7 +371,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        0,
+        -2.409,
         0,
         0,
         0,
@@ -411,7 +411,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "c71a84d7-6b1b-491b-97c8-92786aa5d3cb"
+      "__uuid__": "6b240821-eeaf-4897-8d8a-8a665d07b7ae"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -676,7 +676,7 @@
     "player": {
       "__id__": 7
     },
-    "maxSpeed": 10,
+    "maxSpeed": 6.2,
     "_id": "belnBrsjBL64wJSZ7/Yszu"
   },
   {

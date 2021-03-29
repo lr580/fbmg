@@ -17,3 +17,9 @@
 - gameStart 开始游戏按钮脚本
 
 #### player
+
+- player_self 玩家对象脚本
+
+#### sc
+
+- joystick 四方向摇杆脚本
