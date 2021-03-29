@@ -72,6 +72,7 @@ cc.Class({
         // when touch starts, set joyStickBtn's position 
         let pos = this.node.convertToNodeSpaceAR(event.getLocation());
         this.joyStickBtn.setPosition(pos);
+        this.onTouchMove(event)
     },
 
     onTouchMove(event) {
@@ -103,6 +104,8 @@ cc.Class({
         let len = this.joyStickBtn.position.mag();
         let maxLen = this.node.width / 2;
         let ratio = len / maxLen;
+        //cc.log(ratio)
+        //cc.log(this.dir.x)
 
         // restrict joyStickBtn inside the joyStickPanel
         if (ratio > 1) {
