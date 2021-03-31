@@ -36,3 +36,18 @@
 # 全局变量
 
 存放在menu场景的节点global内。
+
+# 项目配置
+
+## 分组
+
+- default
+- player 玩家
+- enemy 敌人
+- sc 场景(如墙)
+
+碰撞配对：
+
+- player-enemy
+- player-sc
+- enemy-sc
