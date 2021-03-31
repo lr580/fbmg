@@ -7,7 +7,7 @@
 
 cc.Class({
     extends: cc.Component,
-    
+
     properties: {
         // foo: {
         //     // ATTRIBUTES:
@@ -28,29 +28,33 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
-        this.node.on("mousedown",this.continue,this);
+    onLoad() {
+        this.node.on("mousedown", this.continue, this);
         // var faO = cc.fadeOut(2);//2秒淡出this.node.runAction(faO);
         // var faI = cc.fadeIn(2);//2秒淡入
         // this.node.opacity = 0;//调节透明度
         // this.node.runAction(faI);
         // var faTo = cc.fadeTo(1, 128);
         // this.node.runAction(faTo);
-
+        //this.node.runAction(cc.fadeOut(2))
     },
 
     start() {
-        
+
     },
 
-    continue(){
+    continue() {
         // let node = cc.find("Canvas/content");
         // console.log(node.lable);
-        // var faO = cc.fadeOut(2);//2秒淡出this.node.runAction(faO);
+        var faO = cc.fadeOut(2);//2秒淡出this.node.runAction(faO);
         // this.node.opacity = 66;//调节透明度
         // var faTo = cc.fadeTo(1, 128);
-        // this.node.runAction(faTo);
-        cc.director.loadScene('menu');
+        var ev = cc.callFunc(function (tg) {
+            cc.director.loadScene('menu')
+        }, this, 0)
+        var seq = cc.sequence(faO, ev)
+        this.node.runAction(seq);
+
     }
     // clickEvent(event, customEventData) {
     //     cc.director.loadScene('menu');
