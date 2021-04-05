@@ -70,14 +70,14 @@ cc.Class({
 
     onTouchStart(event) {
         // when touch starts, set joyStickBtn's position 
-        let pos = this.node.convertToNodeSpaceAR(event.getLocation());
+        var pos = this.node.convertToNodeSpaceAR(event.getLocation());
         this.joyStickBtn.setPosition(pos);
         this.onTouchMove(event)
     },
 
     onTouchMove(event) {
         // constantly change joyStickBtn's position
-        let posDelta = event.getDelta();
+        var posDelta = event.getDelta();
         this.joyStickBtn.setPosition(this.joyStickBtn.position.add(posDelta));
 
         // get direction
@@ -101,9 +101,9 @@ cc.Class({
     // update (dt) {},
     update(dt) {
         // get ratio
-        let len = this.joyStickBtn.position.mag();
-        let maxLen = this.node.width / 2;
-        let ratio = len / maxLen;
+        var len = this.joyStickBtn.position.mag();
+        var maxLen = this.node.width / 2;
+        var ratio = len / maxLen;
         //cc.log(ratio)
         //cc.log(this.dir.x)
 
@@ -112,9 +112,16 @@ cc.Class({
             this.joyStickBtn.setPosition(this.joyStickBtn.position.div(ratio));
         }
 
+        var px = this.player.x
+        var py = this.player.y
+        var pw = this.player.width
+        var ph = this.player.height
+        var ckcoli = this.checkcoli()
+        if (!ckcoli) return
+
         // move Player
 
-        let dis = this.dir.mul(this.maxSpeed * ratio);
+        var dis = this.dir.mul(this.maxSpeed * ratio);
         this.player.setPosition(this.player.position.add(dis));
 
 
@@ -129,5 +136,62 @@ cc.Class({
         else if (this.player.y < -this.player.parent.height / 2 + this.player.height / 2)
             this.player.y = -this.player.parent.height / 2 + this.player.height / 2;
         // console.log(this.player.x, this.player.y)
+    },
+
+    polycoli(a, b) {
+        var p = [
+            [a.x, a.y],
+            [a.x + a.width, a.y],
+            [a.x, a.y + a.height],
+            [a.x + a.width, a.y + a.height],
+        ]
+        var q = [
+            [b.x, b.y],
+            [b.x + b.width, b.y + b.height],
+        ]
+        for (let i = 0; i < 4; ++i) {
+            if (p[i][0] >= q[0][0] && p[i][1] >= q[0][1] && p[i][0] <= q[1][0] && p[i][1] <= q[1][1]) {
+                return true;
+            }
+        }
+        return false;
+    },
+
+    checkcoli() {
+        var len = this.joyStickBtn.position.mag();
+        var maxLen = this.node.width / 2;
+        var ratio = len / maxLen;
+        var px = this.player.x
+        var py = this.player.y
+        var pw = this.player.width
+        var ph = this.player.height
+        var nowrect = cc.rect(px, py, pw, ph)
+        var dis = this.dir.mul(this.maxSpeed * ratio);
+        var dx = dis.x
+        var dy = dis.y
+        var futurerect = cc.rect(nowrect.x + dx, nowrect.y + dy, pw, ph)
+        var futurerect_x = cc.rect(nowrect.x, nowrect.y + dy, pw, ph)
+        var futurerect_y = cc.rect(nowrect.x + dx, nowrect.y, pw, ph)
+
+        var cv = cc.find('Canvas')
+        var cvcp = cv.getComponent('sc_logic')
+        var walls = cvcp.walls
+
+        for (let i = 0; i < walls.length; ++i) {
+            cc.log(futurerect, walls[i])
+            if (this.polycoli(futurerect, walls[i])) {
+                //cc.log('qwq')
+                return false
+            }
+            // cc.log(walls[i], futurerect)
+            // if (cc.Intersection.polygonPolygon(futurerect, walls[i])) {
+            //     cc.log('qwq')
+            //     return false
+            // }
+        }
+        return true
+
+        //cc.log(walls)
+        //cc.log('wtf', nowrect, futurerect)
     },
 });

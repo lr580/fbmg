@@ -24,7 +24,8 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-
+        beforeX: 0,
+        beforeY: 0,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -34,6 +35,14 @@ cc.Class({
     start() {
 
     },
+
+    onCollisionEnter() {
+        this.node.color = cc.Color.RED
+    },
+
+    onCollisionExit() {
+        this.node.color = cc.Color.WHITE
+    }
 
     // update (dt) {},
 });
