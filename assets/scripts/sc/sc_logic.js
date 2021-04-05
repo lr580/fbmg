@@ -73,29 +73,36 @@ cc.Class({
 
         }
 
-        this.node.on('touchstart', this.onTouchStart, this) //调试用
+        // this.node.on('touchstart', this.onTouchStart, this) //调试用
 
         //var phm = cc.director.getPhysicsManager();
         //phm.enabled = true;
         //phm.gravity = cc.v2(0, 0);
+        this.selfn = cc.find('Canvas/mapbg/map/self')
+        this.selfj = this.selfn.getComponent('player_self')
     },
 
     onTouchStart(event) {
-        let pos = this.node.convertToNodeSpaceAR(event.getLocation())
-        cc.log('qwq', pos.x, pos.y)
-        let sel = cc.find('Canvas/mapbg/map/self')
-        cc.log(sel.x, sel.y, sel.width, sel.height)
-        var cv = cc.find('Canvas')
-        var cvcp = cv.getComponent('sc_logic')
-        var walls = cvcp.walls
-        for (let i = 0; i < walls.length; ++i) {
-            cc.log(walls[i].x, walls[i].y, walls[i].width, walls[i].height)
-        }
+        // let pos = this.node.convertToNodeSpaceAR(event.getLocation())
+        // cc.log('qwq', pos.x, pos.y)
+        // let sel = cc.find('Canvas/mapbg/map/self')
+        // cc.log(sel.x, sel.y, sel.width, sel.height)
+        // var cv = cc.find('Canvas')
+        // var cvcp = cv.getComponent('sc_logic')
+        // var walls = cvcp.walls
+        // for (let i = 0; i < walls.length; ++i) {
+        //     cc.log(walls[i].x, walls[i].y, walls[i].width, walls[i].height)
+        // }
     },
 
     start() {
 
     },
 
-    // update (dt) {},
+    update(dt) {
+        //调试：
+        // this.selfj.hp += Math.random() * 5 - 2.5
+        // if (this.selfj.hp > 100) this.selfj.hp = 100
+        // else if (this.selfj.hp < 0) this.selfj.hp = 0
+    },
 });

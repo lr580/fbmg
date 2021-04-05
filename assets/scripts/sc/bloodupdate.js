@@ -24,27 +24,22 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        beforeX: 0,//已经弃用
-        beforeY: 0,//已经弃用
-        hp: 100,
-        fullhp: 100,//满血HP是多少
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad() {
+        this.targetn = cc.find('Canvas/mapbg/map/self')
+        this.target = this.targetn.getComponent('player_self')
+    },
 
     start() {
 
     },
 
-    onCollisionEnter() {
-        this.node.color = cc.Color.RED
+    update(dt) {
+        this.node.scaleX = this.target.hp / this.target.fullhp
+        //this.node.x = -10
+        //cc.log(this.node.scaleX)
     },
-
-    onCollisionExit() {
-        this.node.color = cc.Color.WHITE
-    }
-
-    // update (dt) {},
 });
