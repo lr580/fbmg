@@ -202,11 +202,15 @@ cc.Class({
         var cvcp = cv.getComponent('sc_logic - 001')
         var walls = cvcp.walls
 
+        var stuck = false
+        var stuckx = false
+        var stucky = false
         for (let i = 0; i < walls.length; ++i) {
             //cc.log(futurerect, walls[i])
             if (this.polycoli(futurerect, walls[i])) {
                 //cc.log('qwq')
-                return false
+                stuck = true
+                break
             }
             // cc.log(walls[i], futurerect)
             // if (cc.Intersection.polygonPolygon(futurerect, walls[i])) {
@@ -214,6 +218,15 @@ cc.Class({
             //     return false
             // }
         }
+        if (stuck) for (let i = 0; i < walls.length; ++i) {
+            if (this.polycoli(futurerect_x, walls[i])) {
+                stuckx = true;
+                break;
+            }
+        }
+
+
+
         return true
 
         //cc.log(walls)

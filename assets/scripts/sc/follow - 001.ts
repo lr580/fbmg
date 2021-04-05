@@ -10,4 +10,8 @@ export default class Follow extends cc.Component {
         var follow = cc.follow(this.target, cc.rect(0, 0, 2000, 4000));
         this.node.runAction(follow);
     }
+
+    onEnable() {
+        //cc.director.getPhysicsManager().attachDebugDrawToCamera(this.camera) //fucking shit
+    }
 }

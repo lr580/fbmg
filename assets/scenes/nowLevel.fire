@@ -1270,8 +1270,8 @@
         "__type__": "cc.Rect",
         "x": 150,
         "y": 150,
-        "width": 80,
-        "height": 80
+        "width": 86,
+        "height": 86
       },
       {
         "__type__": "cc.Rect",
@@ -1284,14 +1284,14 @@
         "__type__": "cc.Rect",
         "x": -100,
         "y": -100,
-        "width": 50,
+        "width": 90,
         "height": 100
       },
       {
         "__type__": "cc.Rect",
         "x": -300,
         "y": -400,
-        "width": 50,
+        "width": 90,
         "height": 100
       }
     ],

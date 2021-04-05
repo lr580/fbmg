@@ -117,12 +117,12 @@ cc.Class({
         var pw = this.player.width
         var ph = this.player.height
         var ckcoli = this.checkcoli()
-        if (!ckcoli) return
+        //if (!ckcoli) return
 
         // move Player
 
-        var dis = this.dir.mul(this.maxSpeed * ratio);
-        this.player.setPosition(this.player.position.add(dis));
+        //var dis = this.dir.mul(this.maxSpeed * ratio);
+        this.player.setPosition(this.player.position.add(ckcoli));
 
 
         // restrict Player inside the Canvas
@@ -170,6 +170,10 @@ cc.Class({
         return false;
     },
 
+    policolia(a, b) {
+        return policoli(b, a)
+    },
+
     checkcoli() {
         var len = this.joyStickBtn.position.mag();
         var maxLen = this.node.width / 2;
@@ -191,11 +195,31 @@ cc.Class({
         var cvcp = cv.getComponent('sc_logic')
         var walls = cvcp.walls
 
+        // for (let i = 0; i < walls.length; ++i) {
+        //cc.log(futurerect, walls[i])
+        // if (this.polycoli(futurerect, walls[i])) {
+        //cc.log('qwq')
+        // return false
+        // }
+        // cc.log(walls[i], futurerect)
+        // if (cc.Intersection.polygonPolygon(futurerect, walls[i])) {
+        //     cc.log('qwq')
+        //     return false
+        // }
+        // }
+        // return true
+
+        //cc.log(walls)
+        //cc.log('wtf', nowrect, futurerect)
+        var stuck = false
+        var stuckx = false
+        var stucky = false
         for (let i = 0; i < walls.length; ++i) {
             //cc.log(futurerect, walls[i])
             if (this.polycoli(futurerect, walls[i])) {
                 //cc.log('qwq')
-                return false
+                stuck = true
+                break
             }
             // cc.log(walls[i], futurerect)
             // if (cc.Intersection.polygonPolygon(futurerect, walls[i])) {
@@ -203,9 +227,22 @@ cc.Class({
             //     return false
             // }
         }
-        return true
-
-        //cc.log(walls)
-        //cc.log('wtf', nowrect, futurerect)
+        if (stuck) for (let i = 0; i < walls.length; ++i) {
+            if (this.polycoli(futurerect_x, walls[i])) {//x不走
+                stucky = true;
+                break;
+            }
+        } else return dis
+        if (stucky) for (let i = 0; i < walls.length; ++i) {//y不走
+            if (this.polycoli(futurerect_y, walls[i])) {
+                stuckx = true;
+                break;
+            }
+        } else return cc.Vec2(0, dis.y)
+        // if (stucky && stuckx && stuck) return cc.Vec2()
+        // if (stuck && !stucky) return cc.Vec2(0, dis.y)
+        // return dis
+        if (stuckx) return cc.Vec2(0, 0)
+        else return cc.Vec2(dis.x, 0)
     },
 });
