@@ -24,25 +24,37 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        beforeX: 0,
-        beforeY: 0,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad() {
+        this.shit = 100
+        this.RigidBody = this.getComponent(cc.RigidBody)
+        var fuck = this.RigidBody
+        fuck.linearVelocity.x = this.shit
+        this.RigidBody = fuck
+    },
 
     start() {
 
     },
 
-    onCollisionEnter() {
-        this.node.color = cc.Color.RED
+    update(dt) {
+        if (this.node.x > 200) {
+            // this.RigidBody = this.getComponent(cc.RigidBody)
+            // var fuck = this.RigidBody
+            // fuck.linearVelocity.y += 1
+            // this.RigidBody = fuck
+            // cc.log('hell')
+            this.RigidBody.linearVelocity = cc.Vec2(-100, 0);
+        } else if (this.node.x < 0) {
+            // this.RigidBody = this.getComponent(cc.RigidBody)
+            // var fuck = this.RigidBody
+            // fuck.linearVelocity.x = this.shit
+            // this.RigidBody = fuck
+            this.RigidBody.linearVelocity = cc.Vec2(100, 0);
+        }
+        cc.log('qqqqq', this.node.x)
     },
-
-    onCollisionExit() {
-        this.node.color = cc.Color.WHITE
-    }
-
-    // update (dt) {},
 });

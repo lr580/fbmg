@@ -58,6 +58,8 @@ cc.Class({
 
         // Player's move direction
         this.dir = cc.v2(0, 0);
+
+        this.player.fuckingshit = this.player.getComponent(cc.RigidBody)
     },
 
     onDestroy() {
@@ -117,12 +119,21 @@ cc.Class({
         var pw = this.player.width
         var ph = this.player.height
         var ckcoli = this.checkcoli()
-        //if (!ckcoli) return
+        if (!ckcoli) return
 
         // move Player
 
-        //var dis = this.dir.mul(this.maxSpeed * ratio);
-        this.player.setPosition(this.player.position.add(ckcoli));
+        var dis = this.dir.mul(this.maxSpeed * ratio * 40);
+
+        // this.player.rbd = this.player.getComponent(cc.RigidBody)
+        // var rb = this.player.rbd
+        // rb.linearVelocity.x = dis.x
+        // rb.linearVelocity.y = dis.y
+        // this.player.rbd = rb
+        this.player.fuckingshit.linearVelocity = dis
+
+        // cc.log(rb.linearVelocity.x, rb.linearVelocity.y, dis.x, dis.y)
+        // this.player.setPosition(this.player.position.add(dis));
 
 
         // restrict Player inside the Canvas
@@ -170,36 +181,6 @@ cc.Class({
         return false;
     },
 
-    polycolia(a, b) {
-        return this.polycoli(b, a)
-        // let t = b
-        // let b = a
-        // let a = t
-        // var p = [
-        //     [a.x - a.width / 2, a.y - a.height / 2],
-        //     [a.x + a.width / 2, a.y - a.height / 2],
-        //     [a.x - a.width / 2, a.y + a.height / 2],
-        //     [a.x + a.width / 2, a.y + a.height / 2],
-        // ]
-        // // var q = [
-        // //     [b.x, b.y],
-        // //     [b.x + b.width, b.y + b.height],
-        // // ]
-        // var q = [
-        //     [b.x - b.width / 2, b.y - b.height / 2],
-        //     [b.x + b.width / 2, b.y + b.height / 2],
-        // ]
-        // // for (let i = 0; i < 4; ++i) cc.log(p[i])
-        // // cc.log(q[0])
-        // // cc.log(q[1])
-        // for (let i = 0; i < 4; ++i) {
-        //     if (p[i][0] >= q[0][0] && p[i][1] >= q[0][1] && p[i][0] <= q[1][0] && p[i][1] <= q[1][1]) {
-        //         return true;
-        //     }
-        // }
-        // return false;
-    },
-
     checkcoli() {
         var len = this.joyStickBtn.position.mag();
         var maxLen = this.node.width / 2;
@@ -218,32 +199,15 @@ cc.Class({
         var futurerect_y = cc.rect(nowrect.x + dx, nowrect.y, pw, ph)
 
         var cv = cc.find('Canvas')
-        var cvcp = cv.getComponent('sc_logic')
+        var cvcp = cv.getComponent('sc_logic - 001')
         var walls = cvcp.walls
 
-        // for (let i = 0; i < walls.length; ++i) {
-        //cc.log(futurerect, walls[i])
-        // if (this.polycoli(futurerect, walls[i])) {
-        //cc.log('qwq')
-        // return false
-        // }
-        // cc.log(walls[i], futurerect)
-        // if (cc.Intersection.polygonPolygon(futurerect, walls[i])) {
-        //     cc.log('qwq')
-        //     return false
-        // }
-        // }
-        // return true
-
-        //cc.log(walls)
-        //cc.log('wtf', nowrect, futurerect)
         var stuck = false
         var stuckx = false
         var stucky = false
         for (let i = 0; i < walls.length; ++i) {
             //cc.log(futurerect, walls[i])
-            if (this.polycoli(futurerect, walls[i]) || this.polycolia(futurerect, walls[i])) {
-                // if (this.polycoli(futurerect, walls[i])) {
+            if (this.polycoli(futurerect, walls[i])) {
                 //cc.log('qwq')
                 stuck = true
                 break
@@ -255,23 +219,17 @@ cc.Class({
             // }
         }
         if (stuck) for (let i = 0; i < walls.length; ++i) {
-            if (this.polycoli(futurerect_x, walls[i]) || this.polycolia(futurerect_x, walls[i])) {
-                // if (this.polycoli(futurerect_x, walls[i])) {//x不走
-                stucky = true;
-                break;
-            }
-        } else return dis
-        if (stucky) for (let i = 0; i < walls.length; ++i) {//y不走
-            if (this.polycoli(futurerect_y, walls[i]) || this.polycolia(futurerect_y, walls[i])) {
-                // if (this.polycoli(futurerect_y, walls[i])) {
+            if (this.polycoli(futurerect_x, walls[i])) {
                 stuckx = true;
                 break;
             }
-        } else return cc.Vec2(0, dis.y)
-        // if (stucky && stuckx && stuck) return cc.Vec2()
-        // if (stuck && !stucky) return cc.Vec2(0, dis.y)
-        // return dis
-        if (stuckx) return cc.Vec2(0, 0)
-        else return cc.Vec2(dis.x, 0)
+        }
+
+
+
+        return true
+
+        //cc.log(walls)
+        //cc.log('wtf', nowrect, futurerect)
     },
 });

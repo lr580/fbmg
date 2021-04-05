@@ -24,25 +24,19 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        beforeX: 0,
-        beforeY: 0,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad() {
+        var phm = cc.director.getPhysicsManager();
+        phm.enabled = true;
+        phm.gravity = cc.v2(0, 0);
+    },
 
     start() {
 
     },
-
-    onCollisionEnter() {
-        this.node.color = cc.Color.RED
-    },
-
-    onCollisionExit() {
-        this.node.color = cc.Color.WHITE
-    }
 
     // update (dt) {},
 });
