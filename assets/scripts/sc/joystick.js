@@ -117,16 +117,17 @@ cc.Class({
         let dis = this.dir.mul(this.maxSpeed * ratio);
         this.player.setPosition(this.player.position.add(dis));
 
-        // restrict Player inside the Canvas
-        if (this.player.x > this.player.parent.width / 2)
-            this.player.x = this.player.parent.width / 2;
-        else if (this.player.x < -this.player.parent.width / 2)
-            this.player.x = -this.player.parent.width / 2;
 
-        if (this.player.y > this.player.parent.height / 2)
-            this.player.y = this.player.parent.height / 2;
-        else if (this.player.y < -this.player.parent.height / 2)
-            this.player.y = -this.player.parent.height / 2;
+        // restrict Player inside the Canvas
+        if (this.player.x > this.player.parent.width / 2 - this.player.width / 2)
+            this.player.x = this.player.parent.width / 2 - this.player.width / 2;
+        else if (this.player.x < -this.player.parent.width / 2 + this.player.width / 2)
+            this.player.x = -this.player.parent.width / 2 + this.player.width / 2;
+
+        if (this.player.y > this.player.parent.height / 2 - this.player.height / 2)
+            this.player.y = this.player.parent.height / 2 - this.player.height / 2;
+        else if (this.player.y < -this.player.parent.height / 2 + this.player.height / 2)
+            this.player.y = -this.player.parent.height / 2 + this.player.height / 2;
         // console.log(this.player.x, this.player.y)
     },
 });
