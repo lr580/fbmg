@@ -139,16 +139,29 @@ cc.Class({
     },
 
     polycoli(a, b) {
+        // var p = [
+        //     [a.x, a.y],
+        //     [a.x + a.width, a.y],
+        //     [a.x, a.y + a.height],
+        //     [a.x + a.width, a.y + a.height],
+        // ]
         var p = [
-            [a.x, a.y],
-            [a.x + a.width, a.y],
-            [a.x, a.y + a.height],
-            [a.x + a.width, a.y + a.height],
+            [a.x - a.width / 2, a.y - a.height / 2],
+            [a.x + a.width / 2, a.y - a.height / 2],
+            [a.x - a.width / 2, a.y + a.height / 2],
+            [a.x + a.width / 2, a.y + a.height / 2],
         ]
+        // var q = [
+        //     [b.x, b.y],
+        //     [b.x + b.width, b.y + b.height],
+        // ]
         var q = [
-            [b.x, b.y],
-            [b.x + b.width, b.y + b.height],
+            [b.x - b.width / 2, b.y - b.height / 2],
+            [b.x + b.width / 2, b.y + b.height / 2],
         ]
+        for (let i = 0; i < 4; ++i) cc.log(p[i])
+        cc.log(q[0])
+        cc.log(q[1])
         for (let i = 0; i < 4; ++i) {
             if (p[i][0] >= q[0][0] && p[i][1] >= q[0][1] && p[i][0] <= q[1][0] && p[i][1] <= q[1][1]) {
                 return true;
@@ -165,6 +178,7 @@ cc.Class({
         var py = this.player.y
         var pw = this.player.width
         var ph = this.player.height
+        // var nowrect = cc.rect(px - pw / 2, py - ph / 2, pw, ph)
         var nowrect = cc.rect(px, py, pw, ph)
         var dis = this.dir.mul(this.maxSpeed * ratio);
         var dx = dis.x
@@ -178,7 +192,7 @@ cc.Class({
         var walls = cvcp.walls
 
         for (let i = 0; i < walls.length; ++i) {
-            cc.log(futurerect, walls[i])
+            //cc.log(futurerect, walls[i])
             if (this.polycoli(futurerect, walls[i])) {
                 //cc.log('qwq')
                 return false

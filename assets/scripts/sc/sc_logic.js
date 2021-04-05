@@ -44,7 +44,7 @@ cc.Class({
 
         var mp = cc.find('Canvas/mapbg/map')
         //cc.log(mp)
-
+        var thee = this
         for (let i = 0; i < walls.length; ++i) {
             //cc.log(walls[i])
             cc.loader.loadRes("level/wall0", cc.SpriteFrame, function (err, spriteFrame) {
@@ -55,15 +55,42 @@ cc.Class({
                 node.active = false
                 node.group = 'sc'
                 node.active = true //no work qwq
-                node.setContentSize(walls[i].width, walls[i].height)
-                node.setPosition(walls[i].x, walls[i].y)
+                // node.setContentSize(walls[i].width, walls[i].height)
+                node.width = walls[i].width
+                node.height = walls[i].height
+                node.x = walls[i].x
+                node.y = walls[i].y
+                // let posr = cc.Vec2(walls[i].x + walls[i].width / 2, walls[i].y + walls[i].height / 2)
+                // let posa = mp.convertToNodeSpaceAR(posr)
+                // node.setPosition(posa.x, posa.y)
+                // node.setPosition(walls[i].x - walls[i].width / 2, walls[i].y - walls[i].height / 2)
+                // node.setPosition(walls[i].x, walls[i].y)
+                // node.anchorX = 0
+                // node.anchorY = 0
                 //cc.log(node.group)
             })
+
+
         }
+
+        this.node.on('touchstart', this.onTouchStart, this) //调试用
 
         //var phm = cc.director.getPhysicsManager();
         //phm.enabled = true;
         //phm.gravity = cc.v2(0, 0);
+    },
+
+    onTouchStart(event) {
+        let pos = this.node.convertToNodeSpaceAR(event.getLocation())
+        cc.log('qwq', pos.x, pos.y)
+        let sel = cc.find('Canvas/mapbg/map/self')
+        cc.log(sel.x, sel.y, sel.width, sel.height)
+        var cv = cc.find('Canvas')
+        var cvcp = cv.getComponent('sc_logic')
+        var walls = cvcp.walls
+        for (let i = 0; i < walls.length; ++i) {
+            cc.log(walls[i].x, walls[i].y, walls[i].width, walls[i].height)
+        }
     },
 
     start() {
