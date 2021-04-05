@@ -170,8 +170,34 @@ cc.Class({
         return false;
     },
 
-    policolia(a, b) {
-        return policoli(b, a)
+    polycolia(a, b) {
+        return this.polycoli(b, a)
+        // let t = b
+        // let b = a
+        // let a = t
+        // var p = [
+        //     [a.x - a.width / 2, a.y - a.height / 2],
+        //     [a.x + a.width / 2, a.y - a.height / 2],
+        //     [a.x - a.width / 2, a.y + a.height / 2],
+        //     [a.x + a.width / 2, a.y + a.height / 2],
+        // ]
+        // // var q = [
+        // //     [b.x, b.y],
+        // //     [b.x + b.width, b.y + b.height],
+        // // ]
+        // var q = [
+        //     [b.x - b.width / 2, b.y - b.height / 2],
+        //     [b.x + b.width / 2, b.y + b.height / 2],
+        // ]
+        // // for (let i = 0; i < 4; ++i) cc.log(p[i])
+        // // cc.log(q[0])
+        // // cc.log(q[1])
+        // for (let i = 0; i < 4; ++i) {
+        //     if (p[i][0] >= q[0][0] && p[i][1] >= q[0][1] && p[i][0] <= q[1][0] && p[i][1] <= q[1][1]) {
+        //         return true;
+        //     }
+        // }
+        // return false;
     },
 
     checkcoli() {
@@ -216,7 +242,8 @@ cc.Class({
         var stucky = false
         for (let i = 0; i < walls.length; ++i) {
             //cc.log(futurerect, walls[i])
-            if (this.polycoli(futurerect, walls[i])) {
+            if (this.polycoli(futurerect, walls[i]) || this.polycolia(futurerect, walls[i])) {
+                // if (this.polycoli(futurerect, walls[i])) {
                 //cc.log('qwq')
                 stuck = true
                 break
@@ -228,13 +255,15 @@ cc.Class({
             // }
         }
         if (stuck) for (let i = 0; i < walls.length; ++i) {
-            if (this.polycoli(futurerect_x, walls[i])) {//x不走
+            if (this.polycoli(futurerect_x, walls[i]) || this.polycolia(futurerect_x, walls[i])) {
+                // if (this.polycoli(futurerect_x, walls[i])) {//x不走
                 stucky = true;
                 break;
             }
         } else return dis
         if (stucky) for (let i = 0; i < walls.length; ++i) {//y不走
-            if (this.polycoli(futurerect_y, walls[i])) {
+            if (this.polycoli(futurerect_y, walls[i]) || this.polycolia(futurerect_y, walls[i])) {
+                // if (this.polycoli(futurerect_y, walls[i])) {
                 stuckx = true;
                 break;
             }
