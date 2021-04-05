@@ -58,6 +58,8 @@ cc.Class({
 
         // Player's move direction
         this.dir = cc.v2(0, 0);
+
+        this.player.fuckingshit = this.player.getComponent(cc.RigidBody)
     },
 
     onDestroy() {
@@ -121,8 +123,17 @@ cc.Class({
 
         // move Player
 
-        var dis = this.dir.mul(this.maxSpeed * ratio);
-        this.player.setPosition(this.player.position.add(dis));
+        var dis = this.dir.mul(this.maxSpeed * ratio * 40);
+
+        // this.player.rbd = this.player.getComponent(cc.RigidBody)
+        // var rb = this.player.rbd
+        // rb.linearVelocity.x = dis.x
+        // rb.linearVelocity.y = dis.y
+        // this.player.rbd = rb
+        this.player.fuckingshit.linearVelocity = dis
+
+        // cc.log(rb.linearVelocity.x, rb.linearVelocity.y, dis.x, dis.y)
+        // this.player.setPosition(this.player.position.add(dis));
 
 
         // restrict Player inside the Canvas
@@ -188,7 +199,7 @@ cc.Class({
         var futurerect_y = cc.rect(nowrect.x + dx, nowrect.y, pw, ph)
 
         var cv = cc.find('Canvas')
-        var cvcp = cv.getComponent('sc_logic')
+        var cvcp = cv.getComponent('sc_logic - 001')
         var walls = cvcp.walls
 
         for (let i = 0; i < walls.length; ++i) {
