@@ -35,6 +35,8 @@ cc.Class({
         },
 
         maxSpeed: 10,
+
+        ban: false,
     },
 
 
@@ -70,6 +72,7 @@ cc.Class({
 
     onTouchStart(event) {
         // when touch starts, set joyStickBtn's position 
+        if (this.ban) return
         var pos = this.node.convertToNodeSpaceAR(event.getLocation());
         this.joyStickBtn.setPosition(pos);
         this.onTouchMove(event)
@@ -77,6 +80,7 @@ cc.Class({
 
     onTouchMove(event) {
         // constantly change joyStickBtn's position
+        if (this.ban) return
         var posDelta = event.getDelta();
         this.joyStickBtn.setPosition(this.joyStickBtn.position.add(posDelta));
 
@@ -86,6 +90,7 @@ cc.Class({
 
     onTouchEnd(event) {
         // reset
+        if (this.ban) return
         this.joyStickBtn.setPosition(cc.v2(0, 0));
     },
 
@@ -101,6 +106,7 @@ cc.Class({
     // update (dt) {},
     update(dt) {
         // get ratio
+        if (this.ban) return
         var len = this.joyStickBtn.position.mag();
         var maxLen = this.node.width / 2;
         var ratio = len / maxLen;
@@ -200,6 +206,14 @@ cc.Class({
         // return false;
     },
 
+    ac_n_pause() {
+        var cv = cc.find('ac_board')
+        //cc.log(cv)
+        cv.active = true
+        this.ban = true
+        cc.director.pause()
+    },
+
     checkcoli() {
         var len = this.joyStickBtn.position.mag();
         var maxLen = this.node.width / 2;
@@ -220,6 +234,11 @@ cc.Class({
         var cv = cc.find('Canvas')
         var cvcp = cv.getComponent('sc_logic')
         var walls = cvcp.walls
+
+        var ac = cvcp.finishArea
+        if (this.polycoli(futurerect, ac) || this.polycoli(ac, futurerect)) {
+            this.ac_n_pause()
+        }
 
         // for (let i = 0; i < walls.length; ++i) {
         //cc.log(futurerect, walls[i])

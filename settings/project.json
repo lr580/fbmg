@@ -3,7 +3,8 @@
     "default",
     "player",
     "enemy",
-    "sc"
+    "sc",
+    "sc2"
   ],
   "collision-matrix": [
     [
@@ -16,6 +17,7 @@
       false,
       false,
       true,
+      true,
       true
     ],
     [
@@ -28,6 +30,13 @@
       false,
       true,
       true,
+      false
+    ],
+    [
+      false,
+      true,
+      false,
+      false,
       false
     ]
   ],

@@ -29,6 +29,11 @@ cc.Class({
             default: [],
             type: [cc.Rect],
         },
+
+        finishArea: {
+            default: null,
+            type: cc.Rect,
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -69,9 +74,34 @@ cc.Class({
                 // node.anchorY = 0
                 //cc.log(node.group)
             })
-
-
         }
+
+        var acar = this.finishArea
+        // cc.log(acar)
+        // cc.loader.loadRes("level/ac", cc.spriteFrame, function (err, spriteFrame) {
+        //     let node = new cc.Node('sprite')
+        //     let sp = node.addComponent(cc.Sprite)
+        //     sp.spriteFrame = spriteFrame
+        //     node.parent = mp
+        //     node.width = acar.width
+        //     node.height = acar.height
+        //     node.x = acar.x
+        //     node.y = acar.y
+        //     cc.log("qwq")
+        // })
+        cc.loader.loadRes("level/ac", cc.SpriteFrame, function (err, spriteFrame) {
+            let node = new cc.Node('sprite')
+            let sp = node.addComponent(cc.Sprite)
+            sp.spriteFrame = spriteFrame
+            node.parent = mp
+            node.active = false
+            node.group = 'sc2'
+            node.active = true //no work qwq
+            node.width = acar.width
+            node.height = acar.height
+            node.x = acar.x
+            node.y = acar.y
+        })
 
         // this.node.on('touchstart', this.onTouchStart, this) //调试用
 
