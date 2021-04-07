@@ -39,13 +39,13 @@ cc.Class({
         hurt2_lim: 30, //重伤界限hp
         normal_cw: 120,//一般碰撞箱宽
         normal_ch: 120,//一般碰撞箱高
-        hurt1_cw: 135,//轻伤碰撞箱
-        hurt1_ch: 135,
-        hurt2_cw: 155,//重伤碰撞箱
-        hurt2_ch: 155,
-        hurt1Speed: 4.8,
-        hurt2Speed: 3.5,
-
+        hurt1_cw: 155,//轻伤碰撞箱
+        hurt1_ch: 155,
+        hurt2_cw: 200,//重伤碰撞箱
+        hurt2_ch: 200,
+        hurt1Speed: 4,
+        hurt2Speed: 2.5,
+        cures: 40,//吃一次hp道具回多少血
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -55,7 +55,7 @@ cc.Class({
         this.sclogic_js = this.sclogic.getComponent('sc_logic')
         this.coli = this.node.getComponent(cc.BoxCollider)
         // cc.log('coli', this.coli)
-        this.change_hp(80)
+        // this.change_hp(80)
     },
 
     hp_image() {
@@ -103,11 +103,13 @@ cc.Class({
 
     },
 
-
-
     delta_hp(v) {
         let dt = this.hp + v
         this.change_hp(dt)
+    },
+
+    get_hp() {
+        this.delta_hp(this.cures)
     },
 
     start() {
@@ -123,6 +125,6 @@ cc.Class({
     },
 
     update(dt) {
-        this.delta_hp(-0.5)
+        this.delta_hp(-0.1)
     },
 });

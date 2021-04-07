@@ -33,7 +33,17 @@ cc.Class({
         finishArea: {
             default: null,
             type: cc.Rect,
-        }
+        },
+
+        item_hp: {
+            default: [],
+            type: [cc.Rect],
+        },
+
+        item_hp_catched: {
+            default: [],
+            type: [cc.Boolean],
+        },
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -101,8 +111,27 @@ cc.Class({
                 // node.anchorY = 0
                 //cc.log(node.group)
             })
+        }
 
-
+        // cc.log('qwq', this.item_hp[0])
+        var item_hp = this.item_hp //this在函数里暴死警告
+        for (let i = 0; i < this.item_hp.length; ++i) {
+            cc.loader.loadRes('level/item_hp', cc.SpriteFrame, function (err, spriteFrame) {
+                let node = new cc.Node('sprite')
+                let sp = node.addComponent(cc.Sprite)
+                sp.spriteFrame = spriteFrame
+                node.parent = mp
+                node.active = false
+                node.group = 'sc2'
+                node.active = true
+                // cc.log('qwq?', i)
+                node.width = item_hp[i].width
+                node.height = item_hp[i].height
+                node.x = item_hp[i].x
+                node.y = item_hp[i].y
+                node.name = 'item_hp' + String(i)
+                // cc.log('qwq?', i)
+            })
         }
 
         var acar = this.finishArea
@@ -146,6 +175,9 @@ cc.Class({
     playerinit() {
         this.selfj.hp = this.selfj.fullhp
         this.selfj.delta_hp(0)
+        for (let i = 0; i < this.item_hp.length; ++i) {
+            this.item_hp_catched[i] = false
+        }
     },
 
     start() {

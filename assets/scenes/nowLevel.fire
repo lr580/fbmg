@@ -822,12 +822,13 @@
     "hurt2_lim": 30,
     "normal_cw": 120,
     "normal_ch": 120,
-    "hurt1_cw": 135,
-    "hurt1_ch": 135,
-    "hurt2_cw": 155,
-    "hurt2_ch": 155,
-    "hurt1Speed": 4.8,
-    "hurt2Speed": 3.5,
+    "hurt1_cw": 155,
+    "hurt1_ch": 155,
+    "hurt2_cw": 200,
+    "hurt2_ch": 200,
+    "hurt1Speed": 4,
+    "hurt2Speed": 2.5,
+    "cures": 40,
     "_id": "b3rhOWAdRNprTiEZUjcefR"
   },
   {
@@ -1623,6 +1624,18 @@
       "width": 100,
       "height": 100
     },
+    "item_hp": [
+      {
+        "__type__": "cc.Rect",
+        "x": -400,
+        "y": -400,
+        "width": 50,
+        "height": 50
+      }
+    ],
+    "item_hp_catched": [
+      false
+    ],
     "_id": "47S+XBabdAlJy345Q76EYz"
   },
   {

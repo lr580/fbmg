@@ -95,7 +95,8 @@ cc.Class({
                         let sp = thee.player.getComponent(cc.Sprite)
                         sp.spriteFrame = spriteFrame
                     })
-                    this.ctni = 0
+                    this.ctni = false
+                    this.ctn = 0
                     this.player_js.coli.size.width = this.player.width
                     this.player_js.coli.size.height = this.player.height
                 }
@@ -109,7 +110,8 @@ cc.Class({
                     //     let sp = thee.player.getComponent(cc.Sprite)
                     //     sp.spriteFrame = spriteFrame
                     // })
-                    this.ctni = 0
+                    this.ctni = false
+                    this.ctn = 0
                     this.player_js.delta_hp(0)
                 }
             }
