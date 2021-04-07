@@ -24,34 +24,53 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        beforeX: 0,//已经弃用
-        beforeY: 0,//已经弃用
-        hp: 100,
-        fullhp: 100,//满血HP是多少
-        maxSpeed: 6.2,
-        tMaxSpeed: 6.2,
-        hiding_yz: 3000, //伪装所需时长
-        unhiding_yz: 1500, //去伪装所需时长
-        tHiding_yz: 3000,
-        tUnhiding_yz: 1500,
-        stateMotion: 0,//0正在移动，1正在伪装
+        ctn: 0,
+        //state: 0,//0正在移动，1正在伪装
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad() {
+        this.node.on('touchstart', this.onTouchStart, this);
+        // this.node.on('touchmove', this.onTouchMove, this);
+        this.node.on('touchend', this.onTouchEnd, this);
+        this.node.on('touchcancel', this.onTouchCancel, this);
+
+        this.m_hiding = this.node.children[0]
+        this.m_unhiding = this.node.children[1]
+
+        this.player = cc.find('Canvas/mapbg/map/self')
+        this.player_js = this.player.getComponent('player_self')
+
+
+    },
 
     start() {
 
     },
 
-    onCollisionEnter() {
-        this.node.color = cc.Color.RED
+    onDestroy() {
+        this.node.off('touchstart', this.onTouchStart, this);
+        // this.node.off('touchmove', this.onTouchMove, this);
+        this.node.off('touchend', this.onTouchEnd, this);
+        this.node.off('touchcancel', this.onTouchCancel, this);
     },
 
-    onCollisionExit() {
-        this.node.color = cc.Color.WHITE
-    }
+    onTouchStart(event) {
+
+    },
+
+    onTouchMove(event) {
+
+    },
+
+    onTouchEnd(event) {
+
+    },
+
+    onTouchCancel(event) {
+
+    },
 
     // update (dt) {},
 });

@@ -51,6 +51,8 @@ cc.Class({
         this.joyStickBtn = this.node.children[0];
 
         //this.player = this.control_target //typedef 
+        this.player_js = this.player.getComponent('player_self')
+        cc.log(this.player_js.maxSpeed)
 
         // touch event
         this.node.on('touchstart', this.onTouchStart, this);
@@ -224,7 +226,7 @@ cc.Class({
         var ph = this.player.height
         // var nowrect = cc.rect(px - pw / 2, py - ph / 2, pw, ph)
         var nowrect = cc.rect(px, py, pw, ph)
-        var dis = this.dir.mul(this.maxSpeed * ratio);
+        var dis = this.dir.mul(this.player_js.maxSpeed * ratio);
         var dx = dis.x
         var dy = dis.y
         var futurerect = cc.rect(nowrect.x + dx, nowrect.y + dy, pw, ph)
