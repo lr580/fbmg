@@ -39,6 +39,33 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
+        this.gameinit()
+    },
+
+    onTouchStart(event) {
+        // let pos = this.node.convertToNodeSpaceAR(event.getLocation())
+        // cc.log('qwq', pos.x, pos.y)
+        // let sel = cc.find('Canvas/mapbg/map/self')
+        // cc.log(sel.x, sel.y, sel.width, sel.height)
+        // var cv = cc.find('Canvas')
+        // var cvcp = cv.getComponent('sc_logic')
+        // var walls = cvcp.walls
+        // for (let i = 0; i < walls.length; ++i) {
+        //     cc.log(walls[i].x, walls[i].y, walls[i].width, walls[i].height)
+        // }
+    },
+
+    gameover() {
+        // cc.log('you die')
+        var cv = cc.find('wa_board')
+        cv.active = true
+        var joy = cc.find('Canvas/joystick')
+        var joy_js = joy.getComponent('joystick')
+        joy_js.ban = true
+        cc.director.pause()
+    },
+
+    gameinit() {
         var manager = cc.director.getCollisionManager(); //
 
         manager.enabled = true; // 开启碰撞
@@ -74,6 +101,8 @@ cc.Class({
                 // node.anchorY = 0
                 //cc.log(node.group)
             })
+
+
         }
 
         var acar = this.finishArea
@@ -110,19 +139,13 @@ cc.Class({
         //phm.gravity = cc.v2(0, 0);
         this.selfn = cc.find('Canvas/mapbg/map/self')
         this.selfj = this.selfn.getComponent('player_self')
+
+        this.playerinit()
     },
 
-    onTouchStart(event) {
-        // let pos = this.node.convertToNodeSpaceAR(event.getLocation())
-        // cc.log('qwq', pos.x, pos.y)
-        // let sel = cc.find('Canvas/mapbg/map/self')
-        // cc.log(sel.x, sel.y, sel.width, sel.height)
-        // var cv = cc.find('Canvas')
-        // var cvcp = cv.getComponent('sc_logic')
-        // var walls = cvcp.walls
-        // for (let i = 0; i < walls.length; ++i) {
-        //     cc.log(walls[i].x, walls[i].y, walls[i].width, walls[i].height)
-        // }
+    playerinit() {
+        this.selfj.hp = this.selfj.fullhp
+        this.selfj.delta_hp(0)
     },
 
     start() {

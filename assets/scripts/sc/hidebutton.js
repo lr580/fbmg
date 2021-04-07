@@ -96,17 +96,21 @@ cc.Class({
                         sp.spriteFrame = spriteFrame
                     })
                     this.ctni = 0
+                    this.player_js.coli.size.width = this.player.width
+                    this.player_js.coli.size.height = this.player.height
                 }
             } else if (this.player_js.stateMotion == 1) {
                 this.m_unhiding.scaleY = this.ctn / this.player_js.unhiding_yz
                 if (this.ctn >= this.player_js.unhiding_yz) {
                     this.player_js.stateMotion = 0
-                    let thee = this
-                    cc.loader.loadRes("player/player", cc.SpriteFrame, function (err, spriteFrame) {
-                        let sp = thee.player.getComponent(cc.Sprite)
-                        sp.spriteFrame = spriteFrame
-                    })
+                    // this.player_js.hp_image()
+                    // let thee = this
+                    // cc.loader.loadRes("player/player", cc.SpriteFrame, function (err, spriteFrame) {
+                    //     let sp = thee.player.getComponent(cc.Sprite)
+                    //     sp.spriteFrame = spriteFrame
+                    // })
                     this.ctni = 0
+                    this.player_js.delta_hp(0)
                 }
             }
         }
