@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.5",
+  "uuid": "99462b00-f42c-414c-af48-58c662bba6ce",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 340,
+  "height": 158,
+  "platformSettings": {},
+  "subMetas": {
+    "部分《斗战神》UI，登录界面及各种小按钮-png-背景 ts_爱给网_aigei_com": {
+      "ver": "1.0.4",
+      "uuid": "f352fdac-baaa-42a6-a471-725b5751946a",
+      "rawTextureUuid": "99462b00-f42c-414c-af48-58c662bba6ce",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -0.5,
+      "offsetY": 0,
+      "trimX": 10,
+      "trimY": 0,
+      "width": 319,
+      "height": 158,
+      "rawWidth": 340,
+      "rawHeight": 158,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
