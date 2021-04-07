@@ -108,7 +108,7 @@ cc.Class({
     // update (dt) {},
     update(dt) {
         // get ratio
-        if (this.ban) return
+        if (this.ban) return //游戏暂停中
         var len = this.joyStickBtn.position.mag();
         var maxLen = this.node.width / 2;
         var ratio = len / maxLen;
@@ -118,6 +118,10 @@ cc.Class({
         // restrict joyStickBtn inside the joyStickPanel
         if (ratio > 1) {
             this.joyStickBtn.setPosition(this.joyStickBtn.position.div(ratio));
+        }
+
+        if (this.player_js.stateMotion == 1) { //正在伪装
+            return
         }
 
         var px = this.player.x

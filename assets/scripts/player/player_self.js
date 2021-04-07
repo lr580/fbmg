@@ -34,7 +34,7 @@ cc.Class({
         unhiding_yz: 1500, //去伪装所需时长
         tHiding_yz: 3000,
         tUnhiding_yz: 1500,
-        stateMotion: 0,//0正在移动，1正在伪装
+        stateMotion: 0,//0正在移动，1正在伪装，2伪装中硬直动画状态(未实体化),3去伪装中硬直动画状态(未实体化)
     },
 
     // LIFE-CYCLE CALLBACKS:

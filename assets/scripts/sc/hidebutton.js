@@ -25,6 +25,7 @@ cc.Class({
         //     }
         // },
         ctn: 0,
+        ctni: false, //正在点击
         //state: 0,//0正在移动，1正在伪装
     },
 
@@ -57,7 +58,7 @@ cc.Class({
     },
 
     onTouchStart(event) {
-
+        this.ctni = true
     },
 
     onTouchMove(event) {
@@ -65,12 +66,49 @@ cc.Class({
     },
 
     onTouchEnd(event) {
-
+        this.ctni = false
+        this.ctn = 0
+        if (this.player_js.stateMotion == 0) {
+            this.m_hiding.scaleY = 0
+            this.m_unhiding.scaleY = 0
+        } else if (this.player_js.stateMotion == 1) {
+            this.m_hiding.scaleY = 1
+            this.m_unhiding.scaleY = 0
+        }
     },
 
     onTouchCancel(event) {
 
     },
 
-    // update (dt) {},
+    update(dt) {
+        if (this.ctni) {
+            this.ctn += 1000.0 / 60
+            if (this.player_js.stateMotion == 0) {
+                this.m_hiding.scaleY = this.ctn / this.player_js.hiding_yz
+                if (this.ctn >= this.player_js.hiding_yz) {
+                    this.player_js.stateMotion = 1
+                    // this.player.spriteFrame = 
+                    //cc.log('qwq')
+                    let thee = this
+                    cc.loader.loadRes("player/player_hiding", cc.SpriteFrame, function (err, spriteFrame) {
+                        let sp = thee.player.getComponent(cc.Sprite)
+                        sp.spriteFrame = spriteFrame
+                    })
+                    this.ctni = 0
+                }
+            } else if (this.player_js.stateMotion == 1) {
+                this.m_unhiding.scaleY = this.ctn / this.player_js.unhiding_yz
+                if (this.ctn >= this.player_js.unhiding_yz) {
+                    this.player_js.stateMotion = 0
+                    let thee = this
+                    cc.loader.loadRes("player/player", cc.SpriteFrame, function (err, spriteFrame) {
+                        let sp = thee.player.getComponent(cc.Sprite)
+                        sp.spriteFrame = spriteFrame
+                    })
+                    this.ctni = 0
+                }
+            }
+        }
+    },
 });
