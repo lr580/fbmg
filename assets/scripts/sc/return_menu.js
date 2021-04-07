@@ -33,10 +33,27 @@ cc.Class({
         var jstk = cc.find('Canvas/joystick')
         var jstk_js = jstk.getComponent('joystick')
         jstk_js.ban = false
+        jstk_js.dir = cc.Vec2()
+
+        var jstko = cc.find('Canvas/joystick/fingerPos')
+        jstko.x = 0
+        jstko.y = 0
+
+        var father = cc.find('ac_board')
+        var father_js = father.getComponent('ac_board')
+        //father_js.
+        father.active = false
+
+        var player = cc.find('Canvas/mapbg/map/self')
+        player.x = 0
+        player.y = 0
 
         cc.director.resume()
-        cc.director.loadScene('menu')
-        //cc.game.restart()
+
+        setTimeout(cc.director.loadScene('menu'), 100)
+
+        // cc.director.loadScene('menu')
+        // cc.game.restart()
         //cc.director.resume()
         //cc.director.loadScene('menu')
     },
