@@ -811,6 +811,7 @@
     "beforeY": 0,
     "hp": 100,
     "stateMotion": 0,
+    "item_foundDown": false,
     "fullhp": 100,
     "maxSpeed": 6.2,
     "tMaxSpeed": 6.2,
@@ -820,15 +821,17 @@
     "tUnhiding_yz": 1500,
     "hurt1_lim": 60,
     "hurt2_lim": 30,
-    "normal_cw": 120,
-    "normal_ch": 120,
-    "hurt1_cw": 155,
-    "hurt1_ch": 155,
-    "hurt2_cw": 200,
-    "hurt2_ch": 200,
+    "normal_cw": 130,
+    "normal_ch": 130,
+    "hurt1_cw": 165,
+    "hurt1_ch": 165,
+    "hurt2_cw": 210,
+    "hurt2_ch": 210,
     "hurt1Speed": 4,
     "hurt2Speed": 2.5,
     "cures": 40,
+    "foundDownRate": 0.82,
+    "coliRate": [],
     "_id": "b3rhOWAdRNprTiEZUjcefR"
   },
   {
@@ -1636,10 +1639,23 @@
     "item_hp_catched": [
       false
     ],
-    "limTime": 10,
-    "leftTime": 10,
+    "item_foundDown": [
+      {
+        "__type__": "cc.Rect",
+        "x": 0,
+        "y": -200,
+        "width": 50,
+        "height": 50
+      }
+    ],
+    "item_foundDown_catched": [
+      false
+    ],
+    "limTime": 30,
+    "leftTime": 30,
     "timing": true,
     "levelInfo": "第零关-测试关卡",
+    "waitTime": 20,
     "_id": "47S+XBabdAlJy345Q76EYz"
   },
   {

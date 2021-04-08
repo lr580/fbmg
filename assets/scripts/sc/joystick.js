@@ -269,6 +269,20 @@ cc.Class({
             }
         }
 
+        var item_foundDown = cvcp.item_foundDown
+        for (let i = 0; i < item_foundDown.length; ++i) {
+            if (cvcp.item_foundDown_catched[i]) {
+                continue
+            }
+            if (this.polycoli(futurerect, item_foundDown[i]) || this.polycoli(item_foundDown[i], futurerect)) {
+                this.player_js.get_foundDown()
+                cvcp.item_foundDown_catched[i] = true
+                let tnode = this.map.getChildByName('item_foundDown' + String(i))
+                tnode.active = false
+                tnode.destroy()
+            }
+        }
+
         // for (let i = 0; i < walls.length; ++i) {
         //cc.log(futurerect, walls[i])
         // if (this.polycoli(futurerect, walls[i])) {

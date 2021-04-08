@@ -45,10 +45,21 @@ cc.Class({
             type: [cc.Boolean],
         },
 
-        limTime: 10, //180每关(大概)
-        leftTime: 10,
+        item_foundDown: {
+            default: [],
+            type: [cc.Rect],
+        },
+
+        item_foundDown_catched: {
+            default: [],
+            type: [cc.Boolean],
+        },
+
+        limTime: 180, //180每关(大概)
+        leftTime: 180,
         timing: true,//是否正在计时
         levelInfo: '第零关-测试关卡',
+        waitTime: 20,//ms,刷新频率
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -90,6 +101,7 @@ cc.Class({
         var walls = this.walls
 
         var mp = cc.find('Canvas/mapbg/map')
+        this.mp = cc.find('Canvas/mapbg/map')
         //cc.log(mp)
         var thee = this
         for (let i = 0; i < walls.length; ++i) {
@@ -107,6 +119,7 @@ cc.Class({
                 node.height = walls[i].height
                 node.x = walls[i].x
                 node.y = walls[i].y
+                node.name = "walls" + String(i)
                 // let posr = cc.Vec2(walls[i].x + walls[i].width / 2, walls[i].y + walls[i].height / 2)
                 // let posa = mp.convertToNodeSpaceAR(posr)
                 // node.setPosition(posa.x, posa.y)
@@ -139,6 +152,25 @@ cc.Class({
             })
         }
 
+        var item_foundDown = this.item_foundDown
+        for (let i = 0; i < this.item_foundDown.length; ++i) {
+            cc.loader.loadRes('level/item_foundDown', cc.SpriteFrame, function (err, spriteFrame) {
+                let node = new cc.Node('sprite')
+                let sp = node.addComponent(cc.Sprite)
+                sp.spriteFrame = spriteFrame
+                node.parent = mp
+                node.active = false
+                node.group = 'sc2'
+                node.active = true
+                node.width = item_foundDown[i].width
+                node.height = item_foundDown[i].height
+                node.x = item_foundDown[i].x
+                node.y = item_foundDown[i].y
+                node.name = 'item_foundDown' + String(i)
+            })
+        }
+        // cc.log('???????????????????????')
+
         var acar = this.finishArea
         // cc.log(acar)
         // cc.loader.loadRes("level/ac", cc.spriteFrame, function (err, spriteFrame) {
@@ -164,6 +196,7 @@ cc.Class({
             node.height = acar.height
             node.x = acar.x
             node.y = acar.y
+            node.name = "ac"
         })
 
         // this.node.on('touchstart', this.onTouchStart, this) //调试用
@@ -186,7 +219,7 @@ cc.Class({
         this.hidebutt_js.ctn = 0
         this.hidebutt_js.ctni = false
         this.hidebutt_js.m_hiding.scaleY = 0
-        this.hidebutt_js.m_unhiding.scaleY = 0
+        this.hidebutt_js.m_unhiding.scaleY = 0 //da fix
 
         this.playerinit()
     },
@@ -197,7 +230,43 @@ cc.Class({
         for (let i = 0; i < this.item_hp.length; ++i) {
             this.item_hp_catched[i] = false
         }
+        for (let i = 0; i < this.item_foundDown.length; ++i) {
+            this.item_foundDown_catched[i] = false
+        }
         this.selfj.stateMotion = 0
+        this.selfj.item_foundDown = false
+    },
+
+    destroyAllDpNodes() {  //删除所有动态创建的点
+        for (let i = 0; i < this.walls.length; ++i) {
+            let tnode = this.mp.getChildByName('walls' + String(i))
+            // cc.log('walls', i, tnode)
+            if (tnode == null) {
+                continue
+            }
+            tnode.active = false
+            tnode.destroy()
+        }
+
+        for (let i = 0; i < this.item_hp.length; ++i) {
+            let tnode = this.mp.getChildByName('item_hp' + String(i))
+            // cc.log('item_hp', i, tnode)
+            if (tnode == null) {
+                continue
+            }
+            tnode.active = false
+            tnode.destroy()
+        }
+
+        for (let i = 0; i < this.item_foundDown.length; ++i) {
+            let tnode = this.mp.getChildByName('item_foundDown' + String(i))
+            // cc.log('item_foundDown', i, tnode)
+            if (tnode == null) {
+                continue
+            }
+            tnode.active = false
+            tnode.destroy()
+        }
     },
 
     start() {

@@ -30,31 +30,33 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     click_return(event, customEventData) {
-        var jstk = cc.find('Canvas/joystick')
-        var jstk_js = jstk.getComponent('joystick')
-        jstk_js.ban = false
-        jstk_js.dir = cc.Vec2()
+        this.return_menu('', 'ac_board')
+        // var jstk = cc.find('Canvas/joystick')
+        // var jstk_js = jstk.getComponent('joystick')
+        // jstk_js.ban = false
+        // jstk_js.dir = cc.Vec2()
 
-        var jstko = cc.find('Canvas/joystick/fingerPos')
-        jstko.x = 0
-        jstko.y = 0
+        // var jstko = cc.find('Canvas/joystick/fingerPos')
+        // jstko.x = 0
+        // jstko.y = 0
 
-        var father = cc.find('ac_board')
-        var father_js = father.getComponent('ac_board')
-        //father_js.
-        father.active = false
+        // var father = cc.find('ac_board')
+        // var father_js = father.getComponent('ac_board')
+        // //father_js.
+        // father.active = false
 
-        var player = cc.find('Canvas/mapbg/map/self')
-        player.x = 0
-        player.y = 0
+        // var player = cc.find('Canvas/mapbg/map/self')
+        // player.x = 0
+        // player.y = 0
 
-        cc.director.resume()
+        // cc.director.resume()
 
-        var sc = cc.find('Canvas')
-        var sc_js = sc.getComponent('sc_logic')
-        sc_js.gameinit()
+        // var sc = cc.find('Canvas')
+        // var sc_js = sc.getComponent('sc_logic')
+        // sc_js.destroyAllDpNodes()
+        // sc_js.gameinit()
 
-        setTimeout(cc.director.loadScene('menu'), this.waitTime)
+        // setTimeout(cc.director.loadScene('menu'), this.waitTime)
 
         // cc.director.loadScene('menu')
         // cc.game.restart()
@@ -64,29 +66,31 @@ cc.Class({
 
     return_menu(event, customEventData) {
         // cc.log('die')
-        var jstk = cc.find('Canvas/joystick')
-        var jstk_js = jstk.getComponent('joystick')
-        jstk_js.ban = false
-        jstk_js.dir = cc.Vec2()
+        // var jstk = cc.find('Canvas/joystick')
+        // var jstk_js = jstk.getComponent('joystick')
+        // jstk_js.ban = false
+        // jstk_js.dir = cc.Vec2()
 
-        var jstko = cc.find('Canvas/joystick/fingerPos')
-        jstko.x = 0
-        jstko.y = 0
+        // var jstko = cc.find('Canvas/joystick/fingerPos')
+        // jstko.x = 0
+        // jstko.y = 0
 
-        var father = cc.find(customEventData)
-        var father_js = father.getComponent(customEventData)
+        // var father = cc.find(customEventData)
+        // // var father_js = father.getComponent(customEventData)
 
-        father.active = false
+        // father.active = false
 
-        var player = cc.find('Canvas/mapbg/map/self')
-        player.x = 0
-        player.y = 0
+        // var player = cc.find('Canvas/mapbg/map/self')
+        // player.x = 0
+        // player.y = 0
 
-        cc.director.resume()
+        // cc.director.resume()
 
-        var sc = cc.find('Canvas')
-        var sc_js = sc.getComponent('sc_logic')
-        sc_js.gameinit()
+        // var sc = cc.find('Canvas')
+        // var sc_js = sc.getComponent('sc_logic')
+        // sc_js.destroyAllDpNodes()
+        // sc_js.gameinit()
+        this.sc_resume(customEventData)
 
         setTimeout(cc.director.loadScene('menu'), this.waitTime)
     },
@@ -102,7 +106,7 @@ cc.Class({
         jstko.y = 0
 
         var father = cc.find(customEventData)
-        var father_js = father.getComponent(customEventData)
+        // var father_js = father.getComponent(customEventData)
 
         father.active = false
 
@@ -114,6 +118,7 @@ cc.Class({
 
         var sc = cc.find('Canvas')
         var sc_js = sc.getComponent('sc_logic')
+        sc_js.destroyAllDpNodes()
         sc_js.gameinit()
     },
 
