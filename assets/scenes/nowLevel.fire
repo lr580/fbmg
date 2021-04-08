@@ -1682,8 +1682,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        334.104,
-        580.758,
+        485.382,
+        583.289,
         0,
         0,
         0,
@@ -1710,7 +1710,7 @@
   {
     "__type__": "cc.Node",
     "_name": "bloodframe",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 40
     },
@@ -1740,7 +1740,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 600,
-      "height": 50
+      "height": 35
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1751,8 +1751,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -305.45234999999997,
-        14.239285714285714,
+        -301.179,
+        15.183,
         0,
         0,
         0,
@@ -1807,8 +1807,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 550,
-      "height": 40
+      "width": 800,
+      "height": 250
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1819,8 +1819,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        15,
-        0,
+        6.586,
+        111.603,
         0,
         0,
         0,
@@ -1860,7 +1860,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "4cb92e4d-f160-40fc-bb9a-a72e6c3d51e7"
+      "__uuid__": "2d7a7f4b-3f6c-46ab-aecb-3c6d9f2d5cf3"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -1887,7 +1887,7 @@
     "alignMode": 1,
     "_target": null,
     "_alignFlags": 8,
-    "_left": 0.025,
+    "_left": 0.010976666666666668,
     "_right": 0,
     "_top": 0,
     "_bottom": 0,
@@ -1929,7 +1929,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "f3b1a060-c745-45e4-92d2-4698c05dda04"
+      "__uuid__": "83bb00ee-9c2d-4d2d-8317-31b221ad406b"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -1956,9 +1956,9 @@
     "alignMode": 1,
     "_target": null,
     "_alignFlags": 9,
-    "_left": 0.015155000000000043,
+    "_left": 0.021938095238095298,
     "_right": 0,
-    "_top": 0.10760714285714285,
+    "_top": 0.17317,
     "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
