@@ -44,10 +44,13 @@ cc.Class({
         hurt2_lim: 30, //重伤界限hp
         normal_cw: 130,//一般碰撞箱宽
         normal_ch: 130,//一般碰撞箱高
+        normal_cr: 100,
         hurt1_cw: 165,//轻伤碰撞箱
         hurt1_ch: 165,
+        hurt1_cr: 125,
         hurt2_cw: 210,//重伤碰撞箱
         hurt2_ch: 210,
+        hurt2_cr: 150,
         hurt1Speed: 4,
         hurt2Speed: 2.5,
         cures: 40,//吃一次hp道具回多少血
@@ -64,7 +67,8 @@ cc.Class({
     onLoad() {
         this.sclogic = cc.find('Canvas')
         this.sclogic_js = this.sclogic.getComponent('sc_logic')
-        this.coli = this.node.getComponent(cc.BoxCollider)
+        this.coli = this.node.getComponent(cc.BoxCollider) //旧方案碰撞箱
+        this.colis = this.node.getComponent(cc.CircleCollider) //新方案碰撞箱
         this.coliRate[0] = 1.0
         this.coliRate[1] = this.foundDownRate
         // cc.log('coli', this.coli)
@@ -121,16 +125,19 @@ cc.Class({
             // }
             if (this.hp < this.hurt2_lim) {
                 this.maxSpeed = this.hurt2Speed
-                this.coli.size.height = this.hurt2_ch * this.coliRate[this.get_coliRateIndex(this.item_foundDown)]
-                this.coli.size.width = this.hurt2_cw * this.coliRate[this.get_coliRateIndex(this.item_foundDown)]
+                // this.coli.size.height = this.hurt2_ch * this.coliRate[this.get_coliRateIndex(this.item_foundDown)]
+                // this.coli.size.width = this.hurt2_cw * this.coliRate[this.get_coliRateIndex(this.item_foundDown)]
+                this.colis.radius = this.hurt2_cr * this.coliRate[this.get_coliRateIndex(this.item_foundDown)]
             } else if (this.hp < this.hurt1_lim) {
                 this.maxSpeed = this.hurt1Speed
-                this.coli.size.height = this.hurt1_ch * this.coliRate[this.get_coliRateIndex(this.item_foundDown)]
-                this.coli.size.width = this.hurt1_cw * this.coliRate[this.get_coliRateIndex(this.item_foundDown)]
+                // this.coli.size.height = this.hurt1_ch * this.coliRate[this.get_coliRateIndex(this.item_foundDown)]
+                // this.coli.size.width = this.hurt1_cw * this.coliRate[this.get_coliRateIndex(this.item_foundDown)]
+                this.colis.radius = this.hurt1_cr * this.coliRate[this.get_coliRateIndex(this.item_foundDown)]
             } else {
                 this.maxSpeed = this.tMaxSpeed
-                this.coli.size.height = this.normal_ch * this.coliRate[this.get_coliRateIndex(this.item_foundDown)]
-                this.coli.size.width = this.normal_cw * this.coliRate[this.get_coliRateIndex(this.item_foundDown)]
+                // this.coli.size.height = this.normal_ch * this.coliRate[this.get_coliRateIndex(this.item_foundDown)]
+                // this.coli.size.width = this.normal_cw * this.coliRate[this.get_coliRateIndex(this.item_foundDown)]
+                this.colis.radius = this.normal_cr * this.coliRate[this.get_coliRateIndex(this.item_foundDown)]
             }
             // cc.log('???')
         }
