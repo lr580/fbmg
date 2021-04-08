@@ -221,17 +221,25 @@ cc.Class({
         this.label_levelinfo_label = this.label_levelinfo.getComponent(cc.Label)
         this.label_levelinfo_label.string = this.levelInfo
 
+        setTimeout(this.delay_todo, this.waitTime)
+        // setTimeout(this.playerinit(), this.waitTime)
+        this.playerinit()
+        // cc.log('qwqqq?')
+
+    },
+
+    delay_todo() {
         this.hidebutt = cc.find('Canvas/hides')
         this.hidebutt_js = this.hidebutt.getComponent('hidebutton')
         this.hidebutt_js.ctn = 0
         this.hidebutt_js.ctni = false
         this.hidebutt_js.m_hiding.scaleY = 0
-        this.hidebutt_js.m_unhiding.scaleY = 0 //da fix
+        this.hidebutt_js.m_unhiding.scaleY = 0
 
-        this.playerinit()
     },
 
     playerinit() {
+        // cc.log('?????????????')
         this.selfj.init()
         // this.selfj.hp = this.selfj.fullhp
         // this.selfj.delta_hp(0)

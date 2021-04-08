@@ -250,22 +250,26 @@ cc.Class({
         }
 
         var item_hp = cvcp.item_hp
-        var item_hp_catch = cvcp.item_hp_catched
-        for (let i = 0; i < item_hp.length; ++i) {
-            // cc.log('qwqqqq')
-            if (cvcp.item_hp_catched[i]) {
-                continue
-            }
-            // cc.log('qwqqqqqqqqqqqqqqqqqq')
-            if (this.polycoli(futurerect, item_hp[i]) || this.polycoli(item_hp[i], futurerect)) {
-                this.player_js.get_hp()
-                cvcp.item_hp_catched[i] = true
-                let tnode = this.map.getChildByName('item_hp' + String(i))
-                tnode.active = false
-                tnode.destroy()
-                // cc.log(tnode)
-                // cc.log('qwqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq')
-                break
+        if (!this.player_js.item_isfull()) {
+            // cc.log('qwq?')
+            var item_hp_catch = cvcp.item_hp_catched
+            for (let i = 0; i < item_hp.length; ++i) {
+                // cc.log('qwqqqq')
+                if (cvcp.item_hp_catched[i]) {
+                    continue
+                }
+                // cc.log('qwqqqqqqqqqqqqqqqqqq')
+                if (this.polycoli(futurerect, item_hp[i]) || this.polycoli(item_hp[i], futurerect)) {
+                    // if(this.player_js.item[0]!=0&&this.player_js.item[1]!=0)
+                    this.player_js.catch_hp()
+                    cvcp.item_hp_catched[i] = true
+                    let tnode = this.map.getChildByName('item_hp' + String(i))
+                    tnode.active = false
+                    tnode.destroy()
+                    // cc.log(tnode)
+                    // cc.log('qwqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq')
+                    break
+                }
             }
         }
 

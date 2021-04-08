@@ -31,6 +31,10 @@ cc.Class({
         hp: 100,
         stateMotion: 0,//0正在移动，1正在伪装，2伪装中硬直动画状态(未实体化),3去伪装中硬直动画状态(未实体化)
         item_foundDown: false,//是否装备了迷彩道具
+        item: {
+            default: [],
+            type: cc.Integer,
+        },
 
         //以下是常量
         fullhp: 100,//满血HP是多少
@@ -58,8 +62,10 @@ cc.Class({
         // coliRate: [1, 0.75],
         coliRate: {
             default: [],
-            type: cc.Float
+            type: cc.Float,
         },
+
+        waitTime: 20,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -123,6 +129,7 @@ cc.Class({
             //     this.coli.size.height = this.normal_ch
             //     this.coli.size.width = this.normal_cw
             // }
+            // cc.log(this.colis)
             if (this.hp < this.hurt2_lim) {
                 this.maxSpeed = this.hurt2Speed
                 // this.coli.size.height = this.hurt2_ch * this.coliRate[this.get_coliRateIndex(this.item_foundDown)]
@@ -154,17 +161,72 @@ cc.Class({
         this.delta_hp(this.cures)
     },
 
+    catch_hp() {
+        let idx = this.item_getFullIndex()
+        this.item[idx] = 1
+        this.item_paint(idx)
+        // cc.log(idx)
+    },
+
+    item_isfull() {
+        return this.item[0] != 0 && this.item[1] != 0
+    },
+
+    item_getFullIndex() {
+        if (this.item[0] == 0) {
+            return 0
+        } else {
+            return 1
+        }
+    },
+
+    item_paint(idx) {
+        let img = 'level/item_none'
+        if (this.item[idx] == 1) {
+            img = 'level/item_hp'
+        }
+        cc.loader.loadRes(img, cc.SpriteFrame, function (spr, spriteFrame) {
+            let nodename = 'item' + String(idx)
+            let tnode = cc.find(nodename)
+            let tnodesp = tnode.getComponent(cc.Sprite)
+            tnodesp.spriteFrame = spriteFrame
+        })
+    },
+
+    item_use(idx) {
+        // cc.log(idx)
+        let item_idx = this.item[idx]
+        if (item_idx == 0) {
+            return
+        } else if (item_idx == 1) {
+
+            this.item[idx] = 0
+            this.get_hp()
+            this.item_paint(idx)
+        }
+
+    },
+
     get_foundDown() {
         this.item_foundDown = true
     },
 
     init() {
+        if (this.colis == null) {
+            this.colis = this.node.getComponent(cc.CircleCollider)
+        }
+        // cc.log('???')
         this.hp = this.fullhp
         this.stateMotion = 0
         this.item_foundDown = false
         this.delta_hp(0)
+        // setTimeout(this.delta_hp(0), this.waitTime)
 
-        this.item = [0, 0] //0空，1血包，2EMP，3跃迁
+        this.item[0] = 0 //0空，1血包，3EMP，4跃迁
+        this.item[1] = 0
+        this.item_paint(0)
+        this.item_paint(1)
+        // cc.log(this.item_isfull())
     },
 
     start() {
