@@ -26,7 +26,12 @@ cc.Class({
         // },
         beforeX: 0,//已经弃用
         beforeY: 0,//已经弃用
+
+        //以下是变量
         hp: 100,
+        stateMotion: 0,//0正在移动，1正在伪装，2伪装中硬直动画状态(未实体化),3去伪装中硬直动画状态(未实体化)
+
+        //以下是常量
         fullhp: 100,//满血HP是多少
         maxSpeed: 6.2,
         tMaxSpeed: 6.2,
@@ -34,7 +39,6 @@ cc.Class({
         unhiding_yz: 1500, //去伪装所需时长
         tHiding_yz: 3000,
         tUnhiding_yz: 1500,
-        stateMotion: 0,//0正在移动，1正在伪装，2伪装中硬直动画状态(未实体化),3去伪装中硬直动画状态(未实体化)
         hurt1_lim: 60, //轻伤界限hp
         hurt2_lim: 30, //重伤界限hp
         normal_cw: 120,//一般碰撞箱宽
@@ -86,18 +90,20 @@ cc.Class({
             this.sclogic_js.gameover()
         }
 
-        if (this.hp < this.hurt2_lim) {
-            this.maxSpeed = this.hurt2Speed
-            this.coli.size.height = this.hurt2_ch
-            this.coli.size.width = this.hurt2_cw
-        } else if (this.hp < this.hurt1_lim) {
-            this.maxSpeed = this.hurt1Speed
-            this.coli.size.height = this.hurt1_ch
-            this.coli.size.width = this.hurt1_cw
-        } else {
-            this.maxSpeed = this.tMaxSpeed
-            this.coli.size.height = this.normal_ch
-            this.coli.size.width = this.normal_cw
+        if (this.stateMotion != 1) {
+            if (this.hp < this.hurt2_lim) {
+                this.maxSpeed = this.hurt2Speed
+                this.coli.size.height = this.hurt2_ch
+                this.coli.size.width = this.hurt2_cw
+            } else if (this.hp < this.hurt1_lim) {
+                this.maxSpeed = this.hurt1Speed
+                this.coli.size.height = this.hurt1_ch
+                this.coli.size.width = this.hurt1_cw
+            } else {
+                this.maxSpeed = this.tMaxSpeed
+                this.coli.size.height = this.normal_ch
+                this.coli.size.width = this.normal_cw
+            }
         }
         this.hp_image()
 

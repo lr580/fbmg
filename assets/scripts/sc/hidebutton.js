@@ -43,7 +43,8 @@ cc.Class({
         this.player = cc.find('Canvas/mapbg/map/self')
         this.player_js = this.player.getComponent('player_self')
 
-
+        this.joystick = cc.find('Canvas/joystick')
+        this.joystick_js = this.joystick.getComponent('joystick')
     },
 
     start() {
@@ -75,6 +76,7 @@ cc.Class({
             this.m_hiding.scaleY = 1
             this.m_unhiding.scaleY = 0
         }
+        this.joystick_js.ban = false
     },
 
     onTouchCancel(event) {
@@ -84,6 +86,7 @@ cc.Class({
     update(dt) {
         if (this.ctni) {
             this.ctn += 1000.0 / 60
+            this.joystick_js.ban = true
             if (this.player_js.stateMotion == 0) {
                 this.m_hiding.scaleY = this.ctn / this.player_js.hiding_yz
                 if (this.ctn >= this.player_js.hiding_yz) {

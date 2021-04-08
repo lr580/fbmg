@@ -48,6 +48,7 @@ cc.Class({
         limTime: 10, //180每关(大概)
         leftTime: 10,
         timing: true,//是否正在计时
+        levelInfo: '第零关-测试关卡',
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -176,6 +177,17 @@ cc.Class({
         this.leftTime = this.limTime
         this.timing = true
 
+        this.label_levelinfo = cc.find('player_board/label_levelinfo')
+        this.label_levelinfo_label = this.label_levelinfo.getComponent(cc.Label)
+        this.label_levelinfo_label.string = this.levelInfo
+
+        this.hidebutt = cc.find('Canvas/hides')
+        this.hidebutt_js = this.hidebutt.getComponent('hidebutton')
+        this.hidebutt_js.ctn = 0
+        this.hidebutt_js.ctni = false
+        this.hidebutt_js.m_hiding.scaleY = 0
+        this.hidebutt_js.m_unhiding.scaleY = 0
+
         this.playerinit()
     },
 
@@ -185,6 +197,7 @@ cc.Class({
         for (let i = 0; i < this.item_hp.length; ++i) {
             this.item_hp_catched[i] = false
         }
+        this.selfj.stateMotion = 0
     },
 
     start() {
