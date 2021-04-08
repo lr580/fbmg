@@ -44,6 +44,10 @@ cc.Class({
             default: [],
             type: [cc.Boolean],
         },
+
+        limTime: 10, //180每关(大概)
+        leftTime: 10,
+        timing: true,//是否正在计时
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -169,6 +173,9 @@ cc.Class({
         this.selfn = cc.find('Canvas/mapbg/map/self')
         this.selfj = this.selfn.getComponent('player_self')
 
+        this.leftTime = this.limTime
+        this.timing = true
+
         this.playerinit()
     },
 
@@ -189,5 +196,14 @@ cc.Class({
         // this.selfj.hp += Math.random() * 5 - 2.5
         // if (this.selfj.hp > 100) this.selfj.hp = 100
         // else if (this.selfj.hp < 0) this.selfj.hp = 0
+        if (this.timing) {
+            this.leftTime -= 1.0 / 60.0
+        }
+        if (this.leftTime <= 0) {
+            this.leftTime = 0
+            this.timing = false
+            this.gameover()
+        }
+        // cc.log(this.leftTime)
     },
 });
