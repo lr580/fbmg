@@ -52,7 +52,7 @@ cc.Class({
 
         //this.player = this.control_target //typedef 
         this.player_js = this.player.getComponent('player_self')
-        cc.log(this.player_js.maxSpeed)
+        // cc.log(this.player_js.maxSpeed)
 
         // touch event
         this.node.on('touchstart', this.onTouchStart, this);

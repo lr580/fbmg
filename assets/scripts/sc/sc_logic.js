@@ -199,6 +199,13 @@ cc.Class({
             node.name = "ac"
         })
 
+        for (let i = 0; i < this.item_hp.length; ++i) {
+            this.item_hp_catched[i] = false
+        }
+        for (let i = 0; i < this.item_foundDown.length; ++i) {
+            this.item_foundDown_catched[i] = false
+        }
+
         // this.node.on('touchstart', this.onTouchStart, this) //调试用
 
         //var phm = cc.director.getPhysicsManager();
@@ -225,16 +232,12 @@ cc.Class({
     },
 
     playerinit() {
-        this.selfj.hp = this.selfj.fullhp
-        this.selfj.delta_hp(0)
-        for (let i = 0; i < this.item_hp.length; ++i) {
-            this.item_hp_catched[i] = false
-        }
-        for (let i = 0; i < this.item_foundDown.length; ++i) {
-            this.item_foundDown_catched[i] = false
-        }
-        this.selfj.stateMotion = 0
-        this.selfj.item_foundDown = false
+        this.selfj.init()
+        // this.selfj.hp = this.selfj.fullhp
+        // this.selfj.delta_hp(0)
+
+        // this.selfj.stateMotion = 0
+        // this.selfj.item_foundDown = false
     },
 
     destroyAllDpNodes() {  //删除所有动态创建的点

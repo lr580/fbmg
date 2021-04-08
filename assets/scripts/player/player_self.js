@@ -158,6 +158,15 @@ cc.Class({
         this.item_foundDown = true
     },
 
+    init() {
+        this.hp = this.fullhp
+        this.stateMotion = 0
+        this.item_foundDown = false
+        this.delta_hp(0)
+
+        this.item = [0, 0] //0空，1血包，2EMP，3跃迁
+    },
+
     start() {
 
     },
