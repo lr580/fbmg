@@ -35,6 +35,7 @@ cc.Class({
             default: [],
             type: cc.Integer,
         },
+        selecting_tp: false,
 
         //以下是常量
         fullhp: 100,//满血HP是多少
@@ -55,6 +56,7 @@ cc.Class({
         hurt2_cw: 210,//重伤碰撞箱
         hurt2_ch: 210,
         hurt2_cr: 150,
+        hiding_cr: 62,//伪装碰撞箱
         hurt1Speed: 4,
         hurt2Speed: 2.5,
         cures: 40,//吃一次hp道具回多少血
@@ -64,6 +66,7 @@ cc.Class({
             default: [],
             type: cc.Float,
         },
+        item_tp_d: 600,//道具可tp范围(直径)
 
         waitTime: 20,
     },
@@ -77,6 +80,11 @@ cc.Class({
         this.colis = this.node.getComponent(cc.CircleCollider) //新方案碰撞箱
         this.coliRate[0] = 1.0
         this.coliRate[1] = this.foundDownRate
+        this.delta_hp(0)
+        this.node.on('touchstart', this.onTouchStart, this);
+        // this.node.on('touchmove', this.onTouchMove, this);
+        this.node.on('touchend', this.onTouchEnd, this);
+        this.node.on('touchcancel', this.onTouchCancel, this);
         // cc.log('coli', this.coli)
         // this.change_hp(80)
     },
@@ -168,6 +176,57 @@ cc.Class({
         // cc.log(idx)
     },
 
+    catch_tp() {
+        let idx = this.item_getFullIndex()
+        this.item[idx] = 4
+        this.item_paint(idx)
+    },
+
+    select_tp(idx) {
+        if (this.stateMotion == 1) {
+            this.labelnewinfo_js.broadcast('伪装状态下无法使用跃迁！')
+            return
+        }
+        this.selecting_tp = idx + 1
+        this.labelnewinfo_js.broadcast('请点击选择要跃迁到的区域。')
+        var fa = this.node
+        var thee = this
+        cc.loader.loadRes('texture/3/parts/013', cc.SpriteFrame, function (err, spriteFrame) {
+            let node = new cc.Node('sprite')
+            let sp = node.addComponent(cc.Sprite)
+            // let js = node.addComponent()
+            sp.spriteFrame = spriteFrame
+            node.parent = fa
+            node.active = false
+            node.group = 'sc2'
+            node.active = true
+            node.width = thee.item_tp_d
+            node.height = thee.item_tp_d
+            node.name = 'tp_circle'
+            node.opacity = 125
+        })
+    },
+
+    cancel_select_tp() {
+        this.selecting_tp = false
+        let tnode = this.node.getChildByName('tp_circle')
+        if (tnode == null) {
+            return
+        }
+        tnode.active = false
+        tnode.destroy()
+        this.labelnewinfo_js.broadcast_cancel()
+    },
+
+    do_tp(tgx, tgy) {
+        this.node.x = tgx
+        this.node.y = tgy
+        let idx = this.selecting_tp - 1
+        this.item[idx] = 0
+        this.item_paint(idx)
+        this.cancel_select_tp()
+    },
+
     item_isfull() {
         return this.item[0] != 0 && this.item[1] != 0
     },
@@ -184,6 +243,8 @@ cc.Class({
         let img = 'level/item_none'
         if (this.item[idx] == 1) {
             img = 'level/item_hp'
+        } else if (this.item[idx] == 4) {
+            img = 'level/item_tp'
         }
         cc.loader.loadRes(img, cc.SpriteFrame, function (spr, spriteFrame) {
             let nodename = 'item' + String(idx)
@@ -199,10 +260,19 @@ cc.Class({
         if (item_idx == 0) {
             return
         } else if (item_idx == 1) {
-
+            if (this.hp >= this.fullhp) {
+                this.labelnewinfo_js.broadcast('满血状态无法使用血包！')
+                return
+            }
             this.item[idx] = 0
             this.get_hp()
             this.item_paint(idx)
+        } else if (item_idx == 4) {
+            if (this.selecting_tp) {
+                this.cancel_select_tp()
+            } else {
+                this.select_tp(idx)
+            }
         }
 
     },
@@ -219,6 +289,7 @@ cc.Class({
         this.hp = this.fullhp
         this.stateMotion = 0
         this.item_foundDown = false
+        this.selecting_tp = false
         this.delta_hp(0)
         // setTimeout(this.delta_hp(0), this.waitTime)
 
@@ -227,6 +298,11 @@ cc.Class({
         this.item_paint(0)
         this.item_paint(1)
         // cc.log(this.item_isfull())
+        // this.node.setSiblingIndex(1024)
+        this.labelnewinfo = cc.find('player_board/label_newInfo')
+        this.labelnewinfo_js = this.labelnewinfo.getComponent('newinfo')
+        // cc.log(this.labelnewinfo_js)
+        // this.labelnewinfo_label = this.labelnewinfo.getComponent(cc.Label)
     },
 
     start() {
@@ -241,7 +317,33 @@ cc.Class({
         this.node.color = cc.Color.WHITE
     },
 
+    onTouchStart(event) {
+
+    },
+
+    onTouchMove(event) {
+        // if (this.selecting_tp) {
+        //     var pos = this.node.convertToNodeSpaceAR(event.getLocation())
+        //     cc.log(pos.x, pos.y)
+        // }
+    },
+
+    onTouchEnd(event) {
+
+    },
+
+    onTouchCancel(event) {
+
+    },
+
     update(dt) {
-        this.delta_hp(-0.1)
+        // this.delta_hp(-0.1)
+    },
+
+    onDestroy() {
+        this.node.off('touchstart', this.onTouchStart, this);
+        // this.node.off('touchmove', this.onTouchMove, this);
+        this.node.off('touchend', this.onTouchEnd, this);
+        this.node.off('touchcancel', this.onTouchCancel, this);
     },
 });

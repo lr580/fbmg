@@ -249,10 +249,11 @@ cc.Class({
             this.ac_n_pause()
         }
 
-        var item_hp = cvcp.item_hp
+
         if (!this.player_js.item_isfull()) {
             // cc.log('qwq?')
             var item_hp_catch = cvcp.item_hp_catched
+            var item_hp = cvcp.item_hp
             for (let i = 0; i < item_hp.length; ++i) {
                 // cc.log('qwqqqq')
                 if (cvcp.item_hp_catched[i]) {
@@ -268,6 +269,21 @@ cc.Class({
                     tnode.destroy()
                     // cc.log(tnode)
                     // cc.log('qwqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq')
+                    break
+                }
+            }
+
+            var item_tp = cvcp.item_tp
+            for (let i = 0; i < item_tp.length; ++i) {
+                if (cvcp.item_tp_catched[i]) {
+                    continue
+                }
+                if (this.polycoli(futurerect, item_tp[i]) || this.polycoli(item_tp[i], futurerect)) {
+                    this.player_js.catch_tp()
+                    cvcp.item_tp_catched[i] = true
+                    let tnode = this.map.getChildByName('item_tp' + String(i))
+                    tnode.active = false
+                    tnode.destroy()
                     break
                 }
             }

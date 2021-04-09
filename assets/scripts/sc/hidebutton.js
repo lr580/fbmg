@@ -91,6 +91,7 @@ cc.Class({
                 this.m_hiding.scaleY = this.ctn / this.player_js.hiding_yz
                 if (this.ctn >= this.player_js.hiding_yz) {
                     this.player_js.stateMotion = 1
+                    this.player_js.cancel_select_tp()
                     // this.player.spriteFrame = 
                     //cc.log('qwq')
                     let thee = this
@@ -100,8 +101,9 @@ cc.Class({
                     })
                     this.ctni = false
                     this.ctn = 0
-                    this.player_js.coli.size.width = this.player.width
-                    this.player_js.coli.size.height = this.player.height
+                    // this.player_js.coli.size.width = this.player.width
+                    // this.player_js.coli.size.height = this.player.height
+                    this.player_js.colis.radius = this.player_js.hiding_cr
                 }
             } else if (this.player_js.stateMotion == 1) {
                 this.m_unhiding.scaleY = this.ctn / this.player_js.unhiding_yz

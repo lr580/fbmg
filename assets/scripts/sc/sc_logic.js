@@ -31,7 +31,7 @@ cc.Class({
         },
 
         finishArea: {
-            default: null,
+            default: new cc.Rect(),
             type: cc.Rect,
         },
 
@@ -51,6 +51,16 @@ cc.Class({
         },
 
         item_foundDown_catched: {
+            default: [],
+            type: [cc.Boolean],
+        },
+
+        item_tp: {
+            default: [],
+            type: [cc.Rect],
+        },
+
+        item_tp_catched: {
             default: [],
             type: [cc.Boolean],
         },
@@ -148,6 +158,7 @@ cc.Class({
                 node.x = item_hp[i].x
                 node.y = item_hp[i].y
                 node.name = 'item_hp' + String(i)
+                // node.setSiblingIndex(100 + i)
                 // cc.log('qwq?', i)
             })
         }
@@ -170,6 +181,25 @@ cc.Class({
             })
         }
         // cc.log('???????????????????????')
+
+        var item_tp = this.item_tp
+        for (let i = 0; i < item_tp.length; ++i) {
+            // cc.log('fuc lj')
+            cc.loader.loadRes('level/item_tp', cc.SpriteFrame, function (err, spriteFrame) {
+                let node = new cc.Node('sprite')
+                let sp = node.addComponent(cc.Sprite)
+                sp.spriteFrame = spriteFrame
+                node.parent = mp
+                node.active = false
+                node.group = 'sc2'
+                node.active = true
+                node.width = item_tp[i].width
+                node.height = item_tp[i].height
+                node.x = item_tp[i].x
+                node.y = item_tp[i].y
+                node.name = 'item_tp' + String(i)
+            })
+        }
 
         var acar = this.finishArea
         // cc.log(acar)
@@ -205,6 +235,9 @@ cc.Class({
         for (let i = 0; i < this.item_foundDown.length; ++i) {
             this.item_foundDown_catched[i] = false
         }
+        for (let i = 0; i < this.item_tp.length; ++i) {
+            this.item_tp_catched[i] = false
+        }
 
         // this.node.on('touchstart', this.onTouchStart, this) //调试用
 
@@ -220,6 +253,10 @@ cc.Class({
         this.label_levelinfo = cc.find('player_board/label_levelinfo')
         this.label_levelinfo_label = this.label_levelinfo.getComponent(cc.Label)
         this.label_levelinfo_label.string = this.levelInfo
+
+        this.label_newinfo = cc.find('player_board/label_newInfo')
+        this.label_newinfo_label = this.label_newinfo.getComponent(cc.Label)
+        this.label_newinfo_label.string = ''
 
         setTimeout(this.delay_todo, this.waitTime)
         // setTimeout(this.playerinit(), this.waitTime)
@@ -278,6 +315,19 @@ cc.Class({
             tnode.active = false
             tnode.destroy()
         }
+
+        for (let i = 0; i < this.item_tp.length; ++i) {
+            let tnode = this.mp.getChildByName('item_tp' + String(i))
+            // cc.log('item_foundDown', i, tnode)
+            if (tnode == null) {
+                continue
+            }
+            tnode.active = false
+            tnode.destroy()
+        }
+
+        // let tnode = this.selfn.getChildByName('tp_circle')
+        this.selfj.cancel_select_tp()
     },
 
     start() {
